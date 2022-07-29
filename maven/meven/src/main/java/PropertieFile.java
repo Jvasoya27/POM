@@ -2,7 +2,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
-													// Project connected to config.properti
+
+import org.openqa.selenium.By;
+													// Project connected to config.properties
 													// file
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,7 +21,7 @@ public class PropertieFile {
 		// How to read property file
 		Properties prop = new Properties();
 
-		FileInputStream ip = new FileInputStream("C:\\Users\\jayde\\eclipse-workspace\\meven\\src\\config.properties");
+		FileInputStream ip = new FileInputStream("C:\\Users\\jayde\\git\\repository\\CodingJava\\maven\\maven\\meven\\src\\main\\java\\config.Properties");
 		prop.load(ip);
 
 		System.out.println(prop.getProperty("browser"));
@@ -28,7 +30,7 @@ public class PropertieFile {
 		if (browsername.equals("chrome")) {
 
 			System.setProperty("webdriver.chrome.driver",
-					"C:\\\\Users\\\\jayde\\\\eclipse\\\\java-2022-03\\\\eclipse\\\\chromedriver_win32\\\\chromedriver.exe");
+					"C:\\Users\\jayde\\eclipse\\java-2022-03\\eclipse\\chromedriver_win32\\chromedriver.exe");
 			driver = new ChromeDriver();
 		} else if (browsername.equals("Firwfox")) {
 			driver = new FirefoxDriver();
@@ -39,6 +41,11 @@ public class PropertieFile {
 		}
 		
 		driver.get(prop.getProperty("url"));
+		
+		driver.findElement(By.name("username")).sendKeys(prop.getProperty("username"));
+		driver.findElement(By.name("password")).sendKeys(prop.getProperty("password"));
+		
+		driver.findElement(By.xpath("//input[@type='submit']")).click();
 
 	}
 
